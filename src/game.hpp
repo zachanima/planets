@@ -11,6 +11,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "lwcppgl/display.hpp"
+#include "lwcppgl/keyboard.hpp"
 
 #include "ship.hpp"
 
