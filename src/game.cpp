@@ -37,10 +37,17 @@ GLvoid Game::update() {
 
 
 GLvoid Game::render() {
+  const GLuint mvpUniform = glGetUniformLocation(program, "mvp");
+  glm::mat4 model = glm::mat4(1.f);
+  glm::mat4 view = glm::mat4(1.f);
+  glm::mat4 projection = glm::ortho(0.f, 1280.f, 720.f, 0.f, -4.f, 4.f);
+  glm::mat4 mvp = projection * view * model;
+
   glClearColor(0.f, 0.f, 0.1f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT);
   
   glUseProgram(program);
+  glUniformMatrix4fv(mvpUniform, 1, GL_FALSE, glm::value_ptr(mvp));
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glEnableVertexAttribArray(0);
