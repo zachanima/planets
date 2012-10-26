@@ -12,6 +12,8 @@
 
 #include "lwcppgl/display.hpp"
 
+#include "ship.hpp"
+
 class Game {
   public:
     static GLvoid initialize();
@@ -22,6 +24,7 @@ class Game {
     static GLuint ibo;
     static GLuint vbo;
     static GLuint program;
+    static Ship *ship;
 };
 
 #endif // GAME_HPP
