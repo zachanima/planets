@@ -3,6 +3,7 @@
 GLuint Game::ibo;
 GLuint Game::vbo;
 GLuint Game::program;
+GLuint Game::ticks;
 Ship *Game::ship = new Ship();
 
 
@@ -13,18 +14,24 @@ GLvoid Game::initialize() {
 
   // Initialize ship class.
   Ship::initialize();
+
+  // Initialize tick counter.
+  ticks = SDL_GetTicks();
 }
 
 
 
 GLvoid Game::update() {
+  const GLuint delta = SDL_GetTicks() - ticks;
+  ticks = SDL_GetTicks();
+
   // Apply actions.
   if (Keyboard::isKeyDown(KEY_W)) { ship->act(THRUST); }
   if (Keyboard::isKeyDown(KEY_A)) { ship->act(CCW); }
   if (Keyboard::isKeyDown(KEY_D)) { ship->act(CW); }
 
   // Update ship.
-  ship->update();
+  ship->update(delta);
 }
 
 

@@ -31,21 +31,22 @@ GLvoid Ship::initialize() {
 GLvoid Ship::act(GLuint action) {
   switch (action) {
     case THRUST:
-      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .001f;
+      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0001f;
       break;
     case CW:
-      rotation -= 0.005f;
+      angularVelocity -= 0.000005f;
       break;
     case CCW:
-      rotation += 0.005f;
+      angularVelocity += 0.000005f;
       break;
   }
 }
 
 
 
-GLvoid Ship::update() {
-  position += velocity;
+GLvoid Ship::update(GLuint delta) {
+  position += velocity * (GLfloat)delta;
+  rotation += angularVelocity * (GLfloat)delta;
 }
 
 

@@ -25,6 +25,7 @@ class Game {
     static GLuint ibo;
     static GLuint vbo;
     static GLuint program;
+    static GLuint ticks;
     static Ship *ship;
 };
 

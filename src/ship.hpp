@@ -20,13 +20,14 @@ class Ship {
   public:
     static GLvoid initialize();
     GLvoid act(GLuint);
-    GLvoid update();
+    GLvoid update(GLuint);
     GLvoid render(GLuint, glm::mat4 &);
 
   private:
     glm::vec2 position;
     glm::vec2 velocity;
     GLfloat rotation;
+    GLfloat angularVelocity;
     static GLuint ibo;
     static GLuint vbo;
 };
