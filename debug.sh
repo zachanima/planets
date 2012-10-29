@@ -1,3 +1,3 @@
 #!/bin/sh
 cd bin
-gdb ./particleshader
+gdb ./planets

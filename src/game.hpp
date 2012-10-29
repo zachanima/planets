@@ -3,6 +3,8 @@
 
 #define GL_GLEXT_PROTOTYPES
 
+#define BODIES (1)
+
 #include <GL/gl.h>
 #include <GL/glext.h>
 
@@ -13,6 +15,7 @@
 #include "lwcppgl/display.hpp"
 #include "lwcppgl/keyboard.hpp"
 
+#include "body.hpp"
 #include "ship.hpp"
 
 class Game {
@@ -27,6 +30,7 @@ class Game {
     static GLuint program;
     static GLuint ticks;
     static Ship *ship;
+    static Body *bodies[BODIES];
 };
 
 #endif // GAME_HPP

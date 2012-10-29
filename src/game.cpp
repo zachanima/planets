@@ -5,6 +5,7 @@ GLuint Game::vbo;
 GLuint Game::program;
 GLuint Game::ticks;
 Ship *Game::ship = new Ship();
+Body *Game::bodies[1] = { new Body() };
 
 
 
@@ -12,7 +13,8 @@ GLvoid Game::initialize() {
   // Initialize shaders.
   program = Display::shaders("render.vert", "render.frag");
 
-  // Initialize ship class.
+  // Initialize classes.
+  Body::initialize();
   Ship::initialize();
 
   // Initialize tick counter.
@@ -24,6 +26,11 @@ GLvoid Game::initialize() {
 GLvoid Game::update() {
   const GLuint delta = SDL_GetTicks() - ticks;
   ticks = SDL_GetTicks();
+
+  // Update bodies.
+  for (size_t i = 0; i < BODIES; i++) {
+    bodies[i]->update(delta);
+  }
 
   // Apply actions.
   if (Keyboard::isKeyDown(KEY_W)) { ship->act(THRUST); }
@@ -46,7 +53,12 @@ GLvoid Game::render() {
   
   glUseProgram(program);
 
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  for (size_t i = 0; i < BODIES; i++) {
+    bodies[i]->render(program, vp);
+  }
   ship->render(program, vp);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
   glUseProgram(0);
 }
