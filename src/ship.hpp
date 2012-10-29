@@ -10,6 +10,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "body.hpp"
+
 enum {
   THRUST,
   CW,
@@ -24,6 +26,7 @@ class Ship {
     GLvoid act(GLuint);
     GLvoid update(GLuint);
     GLvoid render(GLuint, glm::mat4 &);
+    GLvoid gravitate(Body *body, GLuint);
 
   private:
     glm::vec2 velocity;

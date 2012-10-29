@@ -38,6 +38,7 @@ GLvoid Body::initialize() {
 
 GLvoid Body::update(GLuint delta) {
   radius = 200.f;
+  mass = 1.f;
 }
 
 

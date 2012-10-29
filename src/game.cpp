@@ -44,6 +44,11 @@ GLvoid Game::update() {
     bodies[i]->update(delta);
   }
 
+  // Apply gravity to ship.
+  for (size_t i = 0; i < BODIES; i++) {
+    ship->gravitate(bodies[i], delta);
+  }
+
   // Apply actions.
   if (Keyboard::isKeyDown(KEY_W)) { ship->act(THRUST); }
   if (Keyboard::isKeyDown(KEY_A)) { ship->act(CCW); }
@@ -66,12 +71,12 @@ GLvoid Game::render() {
   
   glUseProgram(program);
 
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   for (size_t i = 0; i < BODIES; i++) {
     bodies[i]->render(program, vp);
   }
   ship->render(program, vp);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
   glUseProgram(0);
 }

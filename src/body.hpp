@@ -16,15 +16,16 @@
 
 class Body {
   public:
+    glm::vec2 position;
+    GLfloat mass;
+    GLfloat radius;
     static GLvoid initialize();
     GLvoid update(GLuint);
     GLvoid render(GLuint, glm::mat4 &);
 
   private:
-    glm::vec2 position;
     GLfloat rotation;
     GLfloat angularVelocity;
-    GLfloat radius;
     static GLuint ibo;
     static GLuint vbo;
 };
