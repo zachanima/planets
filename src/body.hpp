@@ -4,15 +4,16 @@
 #define GL_GLEXT_PROTOTYPES
 
 #define SUBDIVISIONS (256)
-#define VERTICES (SUBDIVISIONS + 2)
+#define VERTICES (SUBDIVISIONS / 2 + 2)
 #define INDICES (VERTICES)
 
+#include <cmath>
 #include <GL/gl.h>
 #include <GL/glext.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/compatibility.hpp>
 
 class Body {
   public:

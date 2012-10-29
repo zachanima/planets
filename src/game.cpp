@@ -22,7 +22,7 @@ GLvoid Game::initialize() {
   ship = new Ship(position);
 
   // Instantiate bodies.
-  glm::vec3 color(1.f, 1.f, 0.f);
+  glm::vec3 color(4.f, 4.f, 0.f);
   bodies[0] = new Body(100.f, 1.f, color);
   color = glm::vec3(1.f, 0.5f, 0.f);
   bodies[1] = new Body(bodies[0], 20.f, .1f, 500.f, color);
@@ -35,9 +35,9 @@ GLvoid Game::initialize() {
   color = glm::vec3(1.0f, 0.4f, 0.4f);
   bodies[5] = new Body(bodies[0], 30.f, .2f, 1800.f, color);
   color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[6] = new Body(bodies[5], 2.f, .001f, 100.f, color);
+  bodies[6] = new Body(bodies[5], 4.f, .001f, 100.f, color);
   color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[7] = new Body(bodies[5], 2.f, .001f, 80.f, color);
+  bodies[7] = new Body(bodies[5], 4.f, .001f, 80.f, color);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();
@@ -89,7 +89,7 @@ GLvoid Game::render() {
   glm::mat4 vp = projection * view;
   glm::mat4 mvp = vp * model;
 
-  glClearColor(0.f, 0.f, 0.1f, 1.f);
+  glClearColor(0.f, 0.f, 0.f, 1.f);
   glClear(GL_COLOR_BUFFER_BIT);
   
   glUseProgram(program);

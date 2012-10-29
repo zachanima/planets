@@ -39,7 +39,7 @@ GLvoid Ship::initialize() {
 GLvoid Ship::act(GLuint action, GLuint delta) {
   switch (action) {
     case THRUST:
-      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0002f * (GLfloat)delta;
+      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0005f * (GLfloat)delta;
       break;
     case CW:
       angularVelocity -= 0.000005f * (GLfloat)delta;
