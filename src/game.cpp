@@ -22,11 +22,16 @@ GLvoid Game::initialize() {
   ship = new Ship(position);
 
   // Instantiate bodies.
-  bodies[0] = new Body(100.f, 1.f);
-  bodies[1] = new Body(bodies[0], 20.f, .1f, 500.f);
-  bodies[2] = new Body(bodies[0], 40.f, .4f, 800.f);
-  bodies[3] = new Body(bodies[0], 50.f, .5f, 1200.f);
-  bodies[4] = new Body(bodies[3], 10.f, .025f, 200.f);
+  glm::vec3 color(1.f, 1.f, 0.f);
+  bodies[0] = new Body(100.f, 1.f, color);
+  color = glm::vec3(1.f, 0.5f, 0.f);
+  bodies[1] = new Body(bodies[0], 20.f, .1f, 500.f, color);
+  color = glm::vec3(0.8f, 0.6f, 0.f);
+  bodies[2] = new Body(bodies[0], 40.f, .4f, 800.f, color);
+  color = glm::vec3(0.1f, 0.2f, 1.f);
+  bodies[3] = new Body(bodies[0], 50.f, .5f, 1200.f, color);
+  color = glm::vec3(0.8f, 0.8f, 0.8f);
+  bodies[4] = new Body(bodies[3], 10.f, .025f, 200.f, color);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();

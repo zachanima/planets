@@ -5,15 +5,16 @@ GLuint Body::vbo;
 
 
 
-Body::Body(GLfloat radius, GLfloat mass) {
+Body::Body(GLfloat radius, GLfloat mass, glm::vec3 &color) {
   this->host = NULL;
   this->radius = radius;
   this->mass = mass;
+  this->color = color;
 }
 
 
 
-Body::Body(Body *host, GLfloat radius, GLfloat mass, GLfloat orbitalDistance) {
+Body::Body(Body *host, GLfloat radius, GLfloat mass, GLfloat orbitalDistance, glm::vec3 &color) {
   const GLfloat TAU = 6.28318531f;
   const GLfloat G = 1.f;
   const GLfloat M = mass + host->mass;
@@ -24,6 +25,7 @@ Body::Body(Body *host, GLfloat radius, GLfloat mass, GLfloat orbitalDistance) {
   this->radius = radius;
   this->mass = mass;
   this->orbitalDistance = orbitalDistance;
+  this->color = color;
 
   a = glm::distance(glm::vec2(orbitalDistance, 0.f), host->position);
   mu = G * M;
@@ -77,11 +79,13 @@ GLvoid Body::update(GLuint delta) {
 
 GLvoid Body::render(GLuint program, glm::mat4 &vp) {
   const GLuint mvpUniform = glGetUniformLocation(program, "mvp");
+  const GLuint inColorUniform = glGetUniformLocation(program, "inColor");
   glm::mat4 model = glm::translate(glm::mat4(1.f), glm::vec3(position.x, position.y, 0.f));
   model = glm::scale(model, glm::vec3(radius, radius, 1.f));
   glm::mat4 mvp = vp * model;
 
   glUniformMatrix4fv(mvpUniform, 1, GL_FALSE, glm::value_ptr(mvp));
+  glUniform3fv(inColorUniform, 1, glm::value_ptr(color));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
