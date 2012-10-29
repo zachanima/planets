@@ -18,6 +18,7 @@ enum {
 
 class Ship {
   public:
+    glm::vec2 position;
     Ship(glm::vec2 &);
     static GLvoid initialize();
     GLvoid act(GLuint);
@@ -25,7 +26,6 @@ class Ship {
     GLvoid render(GLuint, glm::mat4 &);
 
   private:
-    glm::vec2 position;
     glm::vec2 velocity;
     GLfloat rotation;
     GLfloat angularVelocity;

@@ -23,6 +23,14 @@ GLvoid Game::initialize() {
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();
+
+  // Enable blending.
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // Enable line smoothing.
+  glEnable(GL_LINE_SMOOTH);
+  glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 }
 
 
@@ -50,6 +58,7 @@ GLvoid Game::update() {
 GLvoid Game::render() {
   glm::mat4 projection = glm::ortho(0.f, 1280.f, 720.f, 0.f, -4.f, 4.f);
   glm::mat4 view = glm::translate(glm::mat4(1.f), glm::vec3(640.f, 360.f, 0.f));
+  view = glm::translate(view, glm::vec3(-ship->position, 0.f));
   glm::mat4 vp = projection * view;
 
   glClearColor(0.f, 0.f, 0.1f, 1.f);
