@@ -23,7 +23,7 @@ class Ship {
     glm::vec2 position;
     Ship(glm::vec2 &);
     static GLvoid initialize();
-    GLvoid act(GLuint);
+    GLvoid act(GLuint, GLuint);
     GLvoid update(GLuint);
     GLvoid render(GLuint, glm::mat4 &);
     GLvoid gravitate(Body *body, GLuint);

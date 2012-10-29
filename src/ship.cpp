@@ -32,22 +32,20 @@ GLvoid Ship::initialize() {
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glBufferData(GL_ARRAY_BUFFER, 3 * 3 * sizeof(GLfloat), vs, GL_STATIC_DRAW);
-
-  // Initialize rotation.
 }
 
 
 
-GLvoid Ship::act(GLuint action) {
+GLvoid Ship::act(GLuint action, GLuint delta) {
   switch (action) {
     case THRUST:
-      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0002f;
+      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0002f * (GLfloat)delta;
       break;
     case CW:
-      angularVelocity -= 0.000005f;
+      angularVelocity -= 0.000005f * (GLfloat)delta;
       break;
     case CCW:
-      angularVelocity += 0.000005f;
+      angularVelocity += 0.000005f * (GLfloat)delta;
       break;
   }
 }
