@@ -17,7 +17,7 @@ GLvoid Body::initialize() {
   }
 
   // Initialize vertices.
-  vs[0];
+  vs[0] = glm::vec3(0.f, 0.f, 0.f);
   for (size_t i = 1; i < VERTICES; i++) {
     vs[i].x = cos((GLfloat)(i-1) * ANGLE);
     vs[i].y = -sin((GLfloat)(i-1) * ANGLE);

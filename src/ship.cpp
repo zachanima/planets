@@ -5,6 +5,16 @@ GLuint Ship::vbo;
 
 
 
+Ship::Ship(glm::vec2 &position) {
+  const GLfloat TAU = 6.28318531f;
+
+  this->position = position;
+  rotation = TAU / 4.f;
+  angularVelocity = 0.f;
+}
+
+
+
 GLvoid Ship::initialize() {
   const GLushort is[] = { 0, 1, 2 };
   const GLfloat vs[] = {

@@ -18,6 +18,7 @@ enum {
 
 class Ship {
   public:
+    Ship(glm::vec2 &);
     static GLvoid initialize();
     GLvoid act(GLuint);
     GLvoid update(GLuint);
