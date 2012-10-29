@@ -5,6 +5,14 @@ GLuint Body::vbo;
 
 
 
+Body::Body(glm::vec2 &position, GLfloat radius, GLfloat mass) {
+  this->position = position;
+  this->radius = radius;
+  this->mass = mass;
+}
+
+
+
 GLvoid Body::initialize() {
   const GLfloat TAU = 6.28318531f;
   const GLfloat ANGLE = TAU / (GLfloat)SUBDIVISIONS;
@@ -37,8 +45,6 @@ GLvoid Body::initialize() {
 
 
 GLvoid Body::update(GLuint delta) {
-  radius = 200.f;
-  mass = 1.f;
 }
 
 

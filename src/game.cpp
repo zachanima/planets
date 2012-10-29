@@ -5,7 +5,7 @@ GLuint Game::vbo;
 GLuint Game::program;
 GLuint Game::ticks;
 Ship *Game::ship;
-Body *Game::bodies[1] = { new Body() };
+Body *Game::bodies[BODIES];
 
 
 
@@ -20,6 +20,12 @@ GLvoid Game::initialize() {
   // Instantiate ship.
   glm::vec2 position(0.f, -208.f);
   ship = new Ship(position);
+
+  // Instantiate bodies.
+  position = glm::vec2(0.f, 0.f);
+  bodies[0] = new Body(position, 200.f, 1.f);
+  position = glm::vec2(200.f, 600.f);
+  bodies[1] = new Body(position, 50.f, .25f);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();

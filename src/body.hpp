@@ -17,6 +17,7 @@
 class Body {
   public:
     glm::vec2 position;
+    Body(glm::vec2 &, GLfloat, GLfloat);
     GLfloat mass;
     GLfloat radius;
     static GLvoid initialize();
@@ -24,8 +25,6 @@ class Body {
     GLvoid render(GLuint, glm::mat4 &);
 
   private:
-    GLfloat rotation;
-    GLfloat angularVelocity;
     static GLuint ibo;
     static GLuint vbo;
 };
