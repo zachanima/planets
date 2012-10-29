@@ -5,10 +5,29 @@ GLuint Body::vbo;
 
 
 
-Body::Body(glm::vec2 &position, GLfloat radius, GLfloat mass) {
-  this->position = position;
+Body::Body(GLfloat radius, GLfloat mass) {
+  this->host = NULL;
   this->radius = radius;
   this->mass = mass;
+}
+
+
+
+Body::Body(Body *host, GLfloat radius, GLfloat mass, GLfloat orbitalDistance) {
+  const GLfloat TAU = 6.28318531f;
+  const GLfloat G = 1.f;
+  const GLfloat M = mass + host->mass;
+  GLfloat a;
+  GLfloat mu;
+
+  this->host = host;
+  this->radius = radius;
+  this->mass = mass;
+  this->orbitalDistance = orbitalDistance;
+
+  a = glm::distance(glm::vec2(orbitalDistance, 0.f), host->position);
+  mu = G * M;
+  this->orbitalPeriod = TAU * glm::sqrt(glm::pow(a, 3.f) / mu);
 }
 
 
@@ -45,6 +64,13 @@ GLvoid Body::initialize() {
 
 
 GLvoid Body::update(GLuint delta) {
+  const GLfloat TAU = 6.28318531f;
+
+  // Orbit.
+  if (host != NULL) {
+    position = host->position + glm::vec2(cos(orbitalAngle), sin(orbitalAngle)) * orbitalDistance;
+    orbitalAngle += TAU / orbitalPeriod;
+  }
 }
 
 

@@ -18,14 +18,15 @@ GLvoid Game::initialize() {
   Ship::initialize();
   
   // Instantiate ship.
-  glm::vec2 position(0.f, -208.f);
+  glm::vec2 position(0.f, -108.f);
   ship = new Ship(position);
 
   // Instantiate bodies.
-  position = glm::vec2(0.f, 0.f);
-  bodies[0] = new Body(position, 200.f, 1.f);
-  position = glm::vec2(200.f, 600.f);
-  bodies[1] = new Body(position, 50.f, .25f);
+  bodies[0] = new Body(100.f, 1.f);
+  bodies[1] = new Body(bodies[0], 20.f, .1f, 500.f);
+  bodies[2] = new Body(bodies[0], 40.f, .4f, 800.f);
+  bodies[3] = new Body(bodies[0], 50.f, .5f, 1200.f);
+  bodies[4] = new Body(bodies[3], 10.f, .025f, 200.f);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();

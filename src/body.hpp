@@ -3,7 +3,7 @@
 
 #define GL_GLEXT_PROTOTYPES
 
-#define SUBDIVISIONS (64)
+#define SUBDIVISIONS (256)
 #define VERTICES (SUBDIVISIONS + 2)
 #define INDICES (VERTICES)
 
@@ -17,7 +17,8 @@
 class Body {
   public:
     glm::vec2 position;
-    Body(glm::vec2 &, GLfloat, GLfloat);
+    Body(GLfloat, GLfloat);
+    Body(Body *, GLfloat, GLfloat, GLfloat);
     GLfloat mass;
     GLfloat radius;
     static GLvoid initialize();
@@ -27,6 +28,10 @@ class Body {
   private:
     static GLuint ibo;
     static GLuint vbo;
+    GLfloat orbitalDistance;
+    GLfloat orbitalPeriod;
+    GLfloat orbitalAngle;
+    Body *host;
 };
 
 #endif // BODY_HPP

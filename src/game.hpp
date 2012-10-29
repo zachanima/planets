@@ -3,7 +3,7 @@
 
 #define GL_GLEXT_PROTOTYPES
 
-#define BODIES (2)
+#define BODIES (5)
 
 #include <GL/gl.h>
 #include <GL/glext.h>
