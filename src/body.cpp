@@ -38,7 +38,7 @@ GLvoid Body::initialize() {
   const GLfloat TAU = 6.28318531f;
   const GLfloat ANGLE = TAU / (GLfloat)SUBDIVISIONS;
   GLuint is[INDICES];
-  glm::vec3 vs[VERTICES];
+  glm::vec2 vs[VERTICES];
 
   // Initialize indices.
   for (size_t i = 0; i < VERTICES; i++) {
@@ -46,7 +46,7 @@ GLvoid Body::initialize() {
   }
 
   // Initialize vertices.
-  vs[0] = glm::vec3(0.f, 0.f, 0.f);
+  vs[0] = glm::vec2(0.f, 0.f);
   for (size_t i = 1; i < VERTICES; i++) {
     vs[i].x = cos((GLfloat)(i-1) * ANGLE);
     vs[i].y = -sin((GLfloat)(i-1) * ANGLE);
@@ -60,7 +60,7 @@ GLvoid Body::initialize() {
   // Initialize vertex buffer object.
   glGenBuffers(1, &vbo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, VERTICES * sizeof(glm::vec3), vs, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, VERTICES * sizeof(glm::vec2), vs, GL_STATIC_DRAW);
 }
 
 
@@ -90,7 +90,7 @@ GLvoid Body::render(GLuint program, glm::mat4 &vp) {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid *)0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid *)0);
 
   glDrawElements(GL_TRIANGLE_FAN, INDICES, GL_UNSIGNED_INT, (GLvoid *)0);
 
