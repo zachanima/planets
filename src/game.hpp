@@ -3,8 +3,6 @@
 
 #define GL_GLEXT_PROTOTYPES
 
-#define BODIES (8)
-
 #include <GL/gl.h>
 #include <GL/glext.h>
 
@@ -17,6 +15,22 @@
 
 #include "body.hpp"
 #include "ship.hpp"
+
+enum {
+  SUN,
+  MERCURY,
+  VENUS,
+  EARTH,
+  MARS,
+  JUPITER,
+  SATURN,
+  URANUS,
+  NEPTUNE,
+  MOON,
+  PHOBOS,
+  DEIMOS,
+  BODIES
+};
 
 class Game {
   public:

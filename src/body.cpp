@@ -29,7 +29,7 @@ Body::Body(Body *host, GLfloat radius, GLfloat mass, GLfloat orbitalDistance, gl
 
   a = glm::distance(glm::vec2(orbitalDistance, 0.f), host->position);
   mu = G * M;
-  this->orbitalPeriod = TAU * glm::sqrt(glm::pow(a, 3.f) / mu) * 0.1f;
+  this->orbitalPeriod = TAU * glm::sqrt(glm::pow(a, 3.f) / mu);
 }
 
 

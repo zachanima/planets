@@ -23,21 +23,21 @@ GLvoid Game::initialize() {
 
   // Instantiate bodies.
   glm::vec3 color(4.f, 4.f, 0.f);
-  bodies[0] = new Body(100.f, 1.f, color);
+  bodies[SUN] = new Body(100.f, 1.f, color);
   color = glm::vec3(1.f, 0.5f, 0.f);
-  bodies[1] = new Body(bodies[0], 20.f, .1f, 500.f, color);
+  bodies[MERCURY] = new Body(bodies[SUN], 20.f, .1f, 500.f, color);
   color = glm::vec3(0.8f, 0.6f, 0.f);
-  bodies[2] = new Body(bodies[0], 40.f, .4f, 800.f, color);
+  bodies[VENUS] = new Body(bodies[SUN], 40.f, .4f, 800.f, color);
   color = glm::vec3(0.1f, 0.2f, 1.f);
-  bodies[3] = new Body(bodies[0], 50.f, .5f, 1200.f, color);
+  bodies[EARTH] = new Body(bodies[SUN], 50.f, .5f, 1200.f, color);
   color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[4] = new Body(bodies[3], 10.f, .025f, 200.f, color);
+  bodies[MOON] = new Body(bodies[EARTH], 10.f, .025f, 200.f, color);
   color = glm::vec3(1.0f, 0.4f, 0.4f);
-  bodies[5] = new Body(bodies[0], 30.f, .2f, 1800.f, color);
+  bodies[MARS] = new Body(bodies[SUN], 30.f, .2f, 1800.f, color);
   color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[6] = new Body(bodies[5], 4.f, .001f, 100.f, color);
+  bodies[PHOBOS] = new Body(bodies[MARS], 4.f, .001f, 100.f, color);
   color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[7] = new Body(bodies[5], 4.f, .001f, 80.f, color);
+  bodies[DEIMOS] = new Body(bodies[MARS], 4.f, .001f, 80.f, color);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();
@@ -57,14 +57,12 @@ GLvoid Game::update() {
   const GLuint delta = SDL_GetTicks() - ticks;
   ticks = SDL_GetTicks();
 
-  // Update bodies.
+  // Update bodies, apply gravity to ship.
   for (size_t i = 0; i < BODIES; i++) {
-    bodies[i]->update(delta);
-  }
-
-  // Apply gravity to ship.
-  for (size_t i = 0; i < BODIES; i++) {
-    ship->gravitate(bodies[i], delta);
+    if (bodies[i] != NULL) {
+      bodies[i]->update(delta);
+      ship->gravitate(bodies[i], delta);
+    }
   }
 
   // Apply actions.
@@ -99,29 +97,31 @@ GLvoid Game::render() {
 
   // Render bodies and lines.
   for (size_t i = 0; i < BODIES; i++) {
-    const GLuint is[] = { 0, 1 };
-    const glm::vec2 vs[] = {
-      glm::vec2(ship->position),
-      glm::vec2(ship->position) +
-        glm::normalize(glm::vec2(bodies[i]->position - ship->position)) *
-        glm::sqrt(glm::distance(ship->position, bodies[i]->position))
-    };
-    bodies[i]->render(program, vp);
-    glUniformMatrix4fv(mvpUniform, 1, GL_FALSE, glm::value_ptr(mvp));
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * sizeof(GLuint), is, GL_STATIC_DRAW);
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(glm::vec2), vs, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid *)0);
-    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (GLvoid *)0);
-    glDisableVertexAttribArray(0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glDeleteBuffers(1, &ibo);
-    glDeleteBuffers(1, &vbo);
+    if (bodies[i] != NULL) {
+      const GLuint is[] = { 0, 1 };
+      const glm::vec2 vs[] = {
+        glm::vec2(ship->position),
+        glm::vec2(ship->position) +
+          glm::normalize(glm::vec2(bodies[i]->position - ship->position)) *
+          glm::sqrt(glm::distance(ship->position, bodies[i]->position))
+      };
+      bodies[i]->render(program, vp);
+      glUniformMatrix4fv(mvpUniform, 1, GL_FALSE, glm::value_ptr(mvp));
+      glGenBuffers(1, &ibo);
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+      glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * sizeof(GLuint), is, GL_STATIC_DRAW);
+      glGenBuffers(1, &vbo);
+      glBindBuffer(GL_ARRAY_BUFFER, vbo);
+      glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(glm::vec2), vs, GL_STATIC_DRAW);
+      glEnableVertexAttribArray(0);
+      glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), (GLvoid *)0);
+      glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, (GLvoid *)0);
+      glDisableVertexAttribArray(0);
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glDeleteBuffers(1, &ibo);
+      glDeleteBuffers(1, &vbo);
+    }
   }
 
   glUseProgram(0);
