@@ -61,11 +61,13 @@ GLvoid Ship::update(GLuint delta) {
 
 GLvoid Ship::render(GLuint program, glm::mat4 &vp) {
   const GLuint mvpUniform = glGetUniformLocation(program, "mvp");
+  const GLuint inColorUniform = glGetUniformLocation(program, "inColor");
   glm::mat4 model = glm::translate(glm::mat4(1.f), glm::vec3(position.x, position.y, 0.f));
   model = glm::rotate(model, glm::degrees(-rotation), glm::vec3(0.f, 0.f, 1.f));
   glm::mat4 mvp = vp * model;
 
   glUniformMatrix4fv(mvpUniform, 1, GL_FALSE, glm::value_ptr(mvp));
+  glUniform3fv(inColorUniform, 1, glm::value_ptr(glm::vec3(1.f, 1.f, 1.f)));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
   glBindBuffer(GL_ARRAY_BUFFER, vbo);

@@ -32,6 +32,12 @@ GLvoid Game::initialize() {
   bodies[3] = new Body(bodies[0], 50.f, .5f, 1200.f, color);
   color = glm::vec3(0.8f, 0.8f, 0.8f);
   bodies[4] = new Body(bodies[3], 10.f, .025f, 200.f, color);
+  color = glm::vec3(1.0f, 0.4f, 0.4f);
+  bodies[5] = new Body(bodies[0], 30.f, .2f, 1800.f, color);
+  color = glm::vec3(0.8f, 0.8f, 0.8f);
+  bodies[6] = new Body(bodies[5], 2.f, .001f, 100.f, color);
+  color = glm::vec3(0.8f, 0.8f, 0.8f);
+  bodies[7] = new Body(bodies[5], 2.f, .001f, 80.f, color);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();
