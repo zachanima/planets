@@ -61,6 +61,7 @@ GLvoid Body::update(GLuint delta) {
   if (orbit != NULL) {
     orbit->update(delta);
     position = orbit->position();
+    velocity = orbit->velocity();
   }
 }
 

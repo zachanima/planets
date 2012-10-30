@@ -20,6 +20,7 @@
 class Body {
   public:
     glm::vec2 position;
+    glm::vec2 velocity;
     Body(GLfloat, GLfloat, glm::vec3 &);
     Body(GLfloat, GLfloat, glm::vec3 &, Body *, GLfloat);
     GLfloat mass;

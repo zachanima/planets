@@ -27,3 +27,12 @@ GLvoid Orbit::update(GLuint delta) {
 glm::vec2 Orbit::position() {
   return host->position + glm::vec2(cos(angle), sin(angle)) * distance;
 }
+
+
+
+glm::vec2 Orbit::velocity() {
+  const GLfloat TAU = 6.2831853071795864f;
+  glm::vec2 previous = host->position + glm::vec2(cos(angle), sin(angle)) * distance;
+  glm::vec2 current = host->position + glm::vec2(cos(angle + TAU / period), sin(angle + TAU / period)) * distance;
+  return current - previous;
+}

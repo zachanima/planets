@@ -36,10 +36,10 @@ GLvoid Game::initialize() {
   bodies[MARS] =    new Body(5.33e-1f,  1.07e-1f,  mars,    bodies[SUN], 2.279391e7f);
   bodies[JUPITER] = new Body(1.1209e1f, 3.178e2f,  jupiter, bodies[SUN], 7.785472e7f);
   bodies[SATURN] =  new Body(9.4492f,   9.5152e1f, saturn,  bodies[SUN], 1.43344937e8f);
-  // moons                  r (earth) m * 10 (earth)                       distance (10,000m)
-  bodies[MOON] =   new Body(2.73e-1f, 1.23e-1f, moon,   bodies[EARTH],   3.84399e4f);
-  bodies[IO] =     new Body(2.86e-1f, 1.5e-1f,  io,     bodies[JUPITER], 4.217e4f);
-  bodies[EUROPA] = new Body(2.45e-1f, 8.e-2f,   europa, bodies[JUPITER], 6.709e4f);
+  // moons                  r (earth) m (earth)                          distance (10,000m)
+  bodies[MOON] =   new Body(2.73e-1f, 1.23e-2f, moon,   bodies[EARTH],   3.84399e4f);
+  bodies[IO] =     new Body(2.86e-1f, 1.5e-2f,  io,     bodies[JUPITER], 4.217e4f);
+  bodies[EUROPA] = new Body(2.45e-1f, 8.e-3f,   europa, bodies[JUPITER], 6.709e4f);
 
   // Instantiate ship.
   glm::vec2 position(bodies[EARTH]->position.x, -258.f);

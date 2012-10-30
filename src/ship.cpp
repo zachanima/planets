@@ -39,7 +39,7 @@ GLvoid Ship::initialize() {
 GLvoid Ship::act(GLuint action, GLuint delta) {
   switch (action) {
     case THRUST:
-      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0002f * (GLfloat)delta;
+      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0004f * (GLfloat)delta;
       break;
     case CW:
       angularVelocity -= 0.000005f * (GLfloat)delta;
@@ -85,12 +85,13 @@ GLvoid Ship::render(GLuint program, glm::mat4 &vp) {
 
 GLvoid Ship::gravitate(Body *body, GLuint delta) {
   const GLfloat G = .1f;
-  const GLfloat DISTANCE = glm::distance(position, body->position);
+  const GLfloat SOFT = 1024.f / body->radius;
+  const GLfloat DISTANCE = glm::max(SOFT, glm::distance(position, body->position));
   glm::vec2 unit = glm::normalize(body->position - position);
   glm::vec2 acceleration = G * body->mass / glm::pow(DISTANCE, 2.f) * unit;
   velocity += acceleration * (GLfloat)delta;
 
   if (glm::distance(position + velocity, body->position) < body->radius) {
-    velocity = glm::vec2(0.f, 0.f);
+    velocity = body->velocity;
   }
 }
