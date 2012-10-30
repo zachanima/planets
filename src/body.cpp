@@ -6,30 +6,21 @@ GLuint Body::vbo;
 
 
 Body::Body(GLfloat radius, GLfloat mass, glm::vec3 &color) {
-  this->host = NULL;
-  this->radius = radius;
-  this->mass = mass;
+  // Earth scale.
+  this->radius = radius * 63.781f;
+  this->mass = mass * 5.9736f;
   this->color = color;
+  this->orbit = NULL;
 }
 
 
 
-Body::Body(Body *host, GLfloat radius, GLfloat mass, GLfloat orbitalDistance, glm::vec3 &color) {
-  const GLfloat TAU = 6.28318531f;
-  const GLfloat G = 1.f;
-  const GLfloat M = mass + host->mass;
-  GLfloat a;
-  GLfloat mu;
-
-  this->host = host;
-  this->radius = radius;
-  this->mass = mass;
-  this->orbitalDistance = orbitalDistance;
+Body::Body(GLfloat radius, GLfloat mass, glm::vec3 &color, Body *host, GLfloat distance) {
+  this->radius = radius * 63.781f;
+  this->mass = mass * 5.9736f;
   this->color = color;
-
-  a = glm::distance(glm::vec2(orbitalDistance, 0.f), host->position);
-  mu = G * M;
-  this->orbitalPeriod = TAU * glm::sqrt(glm::pow(a, 3.f) / mu);
+  orbit = new Orbit(host, distance);
+  update(0);
 }
 
 
@@ -66,12 +57,10 @@ GLvoid Body::initialize() {
 
 
 GLvoid Body::update(GLuint delta) {
-  const GLfloat TAU = 6.28318531f;
-
   // Orbit.
-  if (host != NULL) {
-    position = host->position + glm::vec2(cos(orbitalAngle), sin(orbitalAngle)) * orbitalDistance;
-    orbitalAngle += TAU / orbitalPeriod;
+  if (orbit != NULL) {
+    orbit->update(delta);
+    position = orbit->position();
   }
 }
 

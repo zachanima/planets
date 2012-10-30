@@ -17,27 +17,32 @@ GLvoid Game::initialize() {
   Body::initialize();
   Ship::initialize();
   
-  // Instantiate ship.
-  glm::vec2 position(0.f, -208.f);
-  ship = new Ship(position);
-
   // Instantiate bodies.
-  glm::vec3 color(4.f, 4.f, 0.f);
-  bodies[SUN] = new Body(100.f, 1.f, color);
-  color = glm::vec3(1.f, 0.5f, 0.f);
-  bodies[MERCURY] = new Body(bodies[SUN], 20.f, .1f, 500.f, color);
-  color = glm::vec3(0.8f, 0.6f, 0.f);
-  bodies[VENUS] = new Body(bodies[SUN], 40.f, .4f, 800.f, color);
-  color = glm::vec3(0.1f, 0.2f, 1.f);
-  bodies[EARTH] = new Body(bodies[SUN], 50.f, .5f, 1200.f, color);
-  color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[MOON] = new Body(bodies[EARTH], 10.f, .025f, 200.f, color);
-  color = glm::vec3(1.0f, 0.4f, 0.4f);
-  bodies[MARS] = new Body(bodies[SUN], 30.f, .2f, 1800.f, color);
-  color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[PHOBOS] = new Body(bodies[MARS], 4.f, .001f, 100.f, color);
-  color = glm::vec3(0.8f, 0.8f, 0.8f);
-  bodies[DEIMOS] = new Body(bodies[MARS], 4.f, .001f, 80.f, color);
+  glm::vec3 sun(    4.f, 4.f,  0.f);
+  glm::vec3 mercury(1.f,  .5f, 0.f);
+  glm::vec3 venus(   .8f, .6f, 0.f);
+  glm::vec3 earth(   .1f, .2f, 1.f);
+  glm::vec3 moon(    .8f, .8f,  .8f);
+  glm::vec3 mars(   1.f,  .4f,  .4f);
+  glm::vec3 phobos(  .8f, .8f,  .8f);
+  glm::vec3 deimos(  .8f, .8f,  .8f);
+  glm::vec3 jupiter(1.f,  .8f,  .5f);
+  glm::vec3 saturn( 1.f,  .9f,  .8f);
+  bodies[SUN] =     new Body(109.f,  3330.f, sun);
+  bodies[MERCURY] = new Body( .3829f,  .055f,  mercury, bodies[SUN],   8000.f);
+  bodies[VENUS] =   new Body( 1.f,    1.f,     venus,   bodies[SUN],    800.f);
+  bodies[EARTH] =   new Body( 1.f,    1.f,     earth,   bodies[SUN],  12000.f);
+  bodies[MOON] =    new Body(  .273f,  .0123f, moon,    bodies[EARTH],  2.f * 384.399f);
+  bodies[MARS] =    new Body( 1.f,     .8f,    mars,    bodies[SUN],   1800.f);
+  bodies[PHOBOS] =  new Body( 1.f,     .004f,  phobos,  bodies[MARS],   100.f);
+  bodies[DEIMOS] =  new Body( 1.f,     .004f,  deimos,  bodies[MARS],    80.f);
+  bodies[JUPITER] = new Body( 1.f,    2.f ,    jupiter, bodies[SUN],   2500.f);
+  bodies[SATURN] =  new Body( 1.f,    1.8f,    saturn,  bodies[SUN],   3200.f);
+  bodies[URANUS] =  new Body( 1.f,    1.2f,    earth,   bodies[SUN],   3200.f);
+
+  // Instantiate ship.
+  glm::vec2 position(0.f, -bodies[SUN]->radius - 258.f);
+  ship = new Ship(position);
 
   // Initialize tick counter.
   ticks = SDL_GetTicks();
@@ -103,7 +108,7 @@ GLvoid Game::render() {
         glm::vec2(ship->position),
         glm::vec2(ship->position) +
           glm::normalize(glm::vec2(bodies[i]->position - ship->position)) *
-          glm::sqrt(glm::distance(ship->position, bodies[i]->position))
+          glm::sqrt(glm::distance(ship->position, bodies[i]->position) - bodies[i]->radius)
       };
       bodies[i]->render(program, vp);
       glUniformMatrix4fv(mvpUniform, 1, GL_FALSE, glm::value_ptr(mvp));

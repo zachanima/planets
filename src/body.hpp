@@ -15,11 +15,13 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/compatibility.hpp>
 
+#include "orbit.hpp"
+
 class Body {
   public:
     glm::vec2 position;
     Body(GLfloat, GLfloat, glm::vec3 &);
-    Body(Body *, GLfloat, GLfloat, GLfloat, glm::vec3 &);
+    Body(GLfloat, GLfloat, glm::vec3 &, Body *, GLfloat);
     GLfloat mass;
     GLfloat radius;
     static GLvoid initialize();
@@ -29,11 +31,8 @@ class Body {
   private:
     static GLuint ibo;
     static GLuint vbo;
-    GLfloat orbitalDistance;
-    GLfloat orbitalPeriod;
-    GLfloat orbitalAngle;
     glm::vec3 color;
-    Body *host;
+    Orbit *orbit;
 };
 
 #endif // BODY_HPP
