@@ -27,8 +27,10 @@ enum {
   URANUS,
   NEPTUNE,
   MOON,
-  PHOBOS,
-  DEIMOS,
+  IO,
+  EUROPA,
+  GANYMEDE,
+  CALLISTO,
   BODIES
 };
 

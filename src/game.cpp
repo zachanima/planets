@@ -22,26 +22,27 @@ GLvoid Game::initialize() {
   glm::vec3 mercury(1.f,  .5f, 0.f);
   glm::vec3 venus(   .8f, .6f, 0.f);
   glm::vec3 earth(   .1f, .2f, 1.f);
-  glm::vec3 moon(    .8f, .8f,  .8f);
   glm::vec3 mars(   1.f,  .4f,  .4f);
-  glm::vec3 phobos(  .8f, .8f,  .8f);
-  glm::vec3 deimos(  .8f, .8f,  .8f);
   glm::vec3 jupiter(1.f,  .8f,  .5f);
   glm::vec3 saturn( 1.f,  .9f,  .8f);
-  bodies[SUN] =     new Body(109.f,  3330.f, sun);
-  bodies[MERCURY] = new Body( .3829f,  .055f,  mercury, bodies[SUN],   8000.f);
-  bodies[VENUS] =   new Body( 1.f,    1.f,     venus,   bodies[SUN],    800.f);
-  bodies[EARTH] =   new Body( 1.f,    1.f,     earth,   bodies[SUN],  12000.f);
-  bodies[MOON] =    new Body(  .273f,  .0123f, moon,    bodies[EARTH],  2.f * 384.399f);
-  bodies[MARS] =    new Body( 1.f,     .8f,    mars,    bodies[SUN],   1800.f);
-  bodies[PHOBOS] =  new Body( 1.f,     .004f,  phobos,  bodies[MARS],   100.f);
-  bodies[DEIMOS] =  new Body( 1.f,     .004f,  deimos,  bodies[MARS],    80.f);
-  bodies[JUPITER] = new Body( 1.f,    2.f ,    jupiter, bodies[SUN],   2500.f);
-  bodies[SATURN] =  new Body( 1.f,    1.8f,    saturn,  bodies[SUN],   3200.f);
-  bodies[URANUS] =  new Body( 1.f,    1.2f,    earth,   bodies[SUN],   3200.f);
+  glm::vec3 moon(    .5f, .5f,  .5f);
+  glm::vec3 io(      .8f, .8f,  .3f);
+  glm::vec3 europa(  .9f, .7f,  .7f);
+  // planets                 r (earth)  m (earth)                       distance (10,000m)
+  bodies[SUN] =     new Body(1.09e2f,   3.33e5f,   sun);
+  bodies[MERCURY] = new Body(3.829e-1f, 5.5e-2f,   mercury, bodies[SUN], 5.79091e6f);
+  bodies[VENUS] =   new Body(9.499e-1f, 8.15e-1f,  venus,   bodies[SUN], 1.08208e7f);
+  bodies[EARTH] =   new Body(1.f,       1.f,       earth,   bodies[SUN], 1.49598261e7f);
+  bodies[MARS] =    new Body(5.33e-1f,  1.07e-1f,  mars,    bodies[SUN], 2.279391e7f);
+  bodies[JUPITER] = new Body(1.1209e1f, 3.178e2f,  jupiter, bodies[SUN], 7.785472e7f);
+  bodies[SATURN] =  new Body(9.4492f,   9.5152e1f, saturn,  bodies[SUN], 1.43344937e8f);
+  // moons                  r (earth) m * 10 (earth)                       distance (10,000m)
+  bodies[MOON] =   new Body(2.73e-1f, 1.23e-1f, moon,   bodies[EARTH],   3.84399e4f);
+  bodies[IO] =     new Body(2.86e-1f, 1.5e-1f,  io,     bodies[JUPITER], 4.217e4f);
+  bodies[EUROPA] = new Body(2.45e-1f, 8.e-2f,   europa, bodies[JUPITER], 6.709e4f);
 
   // Instantiate ship.
-  glm::vec2 position(0.f, -bodies[SUN]->radius - 258.f);
+  glm::vec2 position(bodies[EARTH]->position.x, -258.f);
   ship = new Ship(position);
 
   // Initialize tick counter.

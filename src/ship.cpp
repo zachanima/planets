@@ -6,7 +6,7 @@ GLuint Ship::vbo;
 
 
 Ship::Ship(glm::vec2 &position) {
-  const GLfloat TAU = 6.28318531f;
+  const GLfloat TAU = 6.2831853071795864f;
 
   this->position = position;
   rotation = TAU / 4.f;
@@ -39,7 +39,7 @@ GLvoid Ship::initialize() {
 GLvoid Ship::act(GLuint action, GLuint delta) {
   switch (action) {
     case THRUST:
-      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .001f * (GLfloat)delta;
+      velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0002f * (GLfloat)delta;
       break;
     case CW:
       angularVelocity -= 0.000005f * (GLfloat)delta;
@@ -84,7 +84,7 @@ GLvoid Ship::render(GLuint program, glm::mat4 &vp) {
 
 
 GLvoid Ship::gravitate(Body *body, GLuint delta) {
-  const GLfloat G = .1f;
+  const GLfloat G = .125f;
   const GLfloat DISTANCE = glm::distance(position, body->position);
   glm::vec2 unit = glm::normalize(body->position - position);
   glm::vec2 acceleration = G * body->mass / glm::pow(DISTANCE, 2.f) * unit;

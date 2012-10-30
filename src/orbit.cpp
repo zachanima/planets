@@ -2,8 +2,8 @@
 #include "body.hpp"
 
 Orbit::Orbit(Body *host, GLfloat distance) {
-  const GLfloat TAU = 6.28318531f;
-  const GLfloat G = .1f;
+  const GLfloat TAU = 6.2831853071795864f;
+  const GLfloat G = .125f;
   const GLfloat M = host->mass; // TODO: Add smaller mass.
   GLfloat a = distance;
   GLfloat mu = G * M;
@@ -17,9 +17,9 @@ Orbit::Orbit(Body *host, GLfloat distance) {
 
 
 GLvoid Orbit::update(GLuint delta) {
-  const GLfloat TAU = 6.28318531f;
+  const GLfloat TAU = 6.2831853071795864f;
 
-  angle += TAU / period;
+  angle += (TAU / period) * (GLfloat)delta;
 }
 
 
