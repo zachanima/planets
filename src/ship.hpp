@@ -5,17 +5,18 @@
 
 #include <GL/gl.h>
 #include <GL/glext.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "body.hpp"
+#include "orbit.hpp"
 
 enum {
   THRUST,
   CW,
-  CCW
+  CCW,
+  ORBIT
 };
 
 class Ship {
@@ -29,6 +30,8 @@ class Ship {
     GLvoid gravitate(Body *body, GLuint);
 
   private:
+    Body *nearest;
+    Orbit *orbit;
     glm::vec2 velocity;
     GLfloat rotation;
     GLfloat angularVelocity;

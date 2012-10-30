@@ -11,6 +11,7 @@ Ship::Ship(glm::vec2 &position) {
   this->position = position;
   rotation = TAU / 4.f;
   angularVelocity = 0.f;
+  this->nearest = NULL;
 }
 
 
@@ -40,6 +41,8 @@ GLvoid Ship::act(GLuint action, GLuint delta) {
   switch (action) {
     case THRUST:
       velocity += glm::vec2(cosf(rotation), -sinf(rotation)) * .0004f * (GLfloat)delta;
+      // TODO: delete orbit;
+      orbit = NULL;
       break;
     case CW:
       angularVelocity -= 0.000005f * (GLfloat)delta;
@@ -47,13 +50,22 @@ GLvoid Ship::act(GLuint action, GLuint delta) {
     case CCW:
       angularVelocity += 0.000005f * (GLfloat)delta;
       break;
+    case ORBIT:
+      orbit = new Orbit(nearest, glm::distance(position, nearest->position), glm::atan2(position.y - nearest->position.y, position.x - nearest->position.x));
+      break;
   }
 }
 
 
 
 GLvoid Ship::update(GLuint delta) {
-  position += velocity * (GLfloat)delta;
+  if (orbit == NULL) {
+    position += velocity * (GLfloat)delta;
+  } else {
+    orbit->update(delta);
+    position = orbit->position();
+    velocity = orbit->velocity();
+  }
   rotation += angularVelocity * (GLfloat)delta;
 }
 
@@ -84,14 +96,21 @@ GLvoid Ship::render(GLuint program, glm::mat4 &vp) {
 
 
 GLvoid Ship::gravitate(Body *body, GLuint delta) {
-  const GLfloat G = .1f;
-  const GLfloat SOFT = 1024.f / body->radius;
-  const GLfloat DISTANCE = glm::max(SOFT, glm::distance(position, body->position + body->radius));
-  glm::vec2 unit = glm::normalize(body->position - position);
-  glm::vec2 acceleration = G * body->mass / glm::pow(DISTANCE, 2.f) * unit;
-  velocity += acceleration * (GLfloat)delta;
+  if (orbit == NULL) {
+    const GLfloat G = .1f;
+    const GLfloat SOFT = 1024.f / body->radius;
+    const GLfloat DISTANCE = glm::max(SOFT, glm::distance(position, body->position + body->radius));
+    glm::vec2 unit = glm::normalize(body->position - position);
+    glm::vec2 acceleration = G * body->mass / glm::pow(DISTANCE, 2.f) * unit;
+    velocity += acceleration * (GLfloat)delta;
 
-  if (glm::distance(position + velocity, body->position) < body->radius) {
-    velocity = body->velocity;
+    if (glm::distance(position + velocity, body->position) < body->radius) {
+      velocity = body->velocity;
+    }
+
+    if (nearest == NULL || glm::distance(position, body->position) < glm::distance(position, nearest->position)) {
+      nearest = body;
+    }
+  } else {
   }
 }

@@ -1,7 +1,7 @@
 #include "orbit.hpp"
 #include "body.hpp"
 
-Orbit::Orbit(Body *host, GLfloat distance) {
+Orbit::Orbit(Body *host, GLfloat distance, GLfloat angle) {
   const GLfloat TAU = 6.2831853071795864f;
   const GLfloat G = .1f;
   const GLfloat M = host->mass; // TODO: Add smaller mass.
@@ -10,8 +10,8 @@ Orbit::Orbit(Body *host, GLfloat distance) {
 
   this->host = host;
   this->distance = distance;
+  this->angle = angle;
   period = TAU * glm::sqrt(glm::pow(a, 3.f) / mu);
-  angle = 0.f;
 }
 
 

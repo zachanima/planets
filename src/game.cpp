@@ -75,6 +75,7 @@ GLvoid Game::update() {
   if (Keyboard::isKeyDown(KEY_W)) { ship->act(THRUST, delta); }
   if (Keyboard::isKeyDown(KEY_A)) { ship->act(CCW, delta); }
   if (Keyboard::isKeyDown(KEY_D)) { ship->act(CW, delta); }
+  if (Keyboard::isKeyDown(KEY_E)) { ship->act(ORBIT, delta); }
 
   // Update ship.
   ship->update(delta);

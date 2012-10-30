@@ -8,7 +8,7 @@ class Body;
 
 class Orbit {
   public:
-    Orbit(Body *, GLfloat);
+    Orbit(Body *, GLfloat, GLfloat);
     GLvoid update(GLuint);
     glm::vec2 position();
     glm::vec2 velocity();
