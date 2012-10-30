@@ -1,9 +1,9 @@
-= Planets
+# Planets
 
 A 2D space exploration sim.
 
 
-== Controls
+## Controls
 
 * **W** - Thrust
 * **A** - Rotate left
