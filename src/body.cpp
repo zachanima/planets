@@ -8,7 +8,7 @@ GLuint Body::vbo;
 Body::Body(GLfloat radius, GLfloat mass, glm::vec3 &color) {
   // Earth scale.
   this->radius = glm::log(1.f + radius) * 63.781f;
-  this->mass = glm::log(3.71828183f + mass) * 5.9736f;
+  this->mass = glm::log(2.71828183f + mass) * 5.9736f;
   this->color = color;
   this->orbit = NULL;
 }
@@ -17,7 +17,7 @@ Body::Body(GLfloat radius, GLfloat mass, glm::vec3 &color) {
 
 Body::Body(GLfloat radius, GLfloat mass, glm::vec3 &color, Body *host, GLfloat distance) {
   this->radius = glm::max(2.f, glm::log(1.f + radius) * 63.781f);
-  this->mass = glm::log(1.f + mass) * 5.9736f;
+  this->mass = glm::log(2.71828183f + mass) * 5.9736f;
   this->color = color;
   orbit = new Orbit(host, host->radius + glm::pow(distance, .6f));
   update(0);

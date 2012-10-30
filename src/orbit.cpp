@@ -3,7 +3,7 @@
 
 Orbit::Orbit(Body *host, GLfloat distance) {
   const GLfloat TAU = 6.2831853071795864f;
-  const GLfloat G = .125f;
+  const GLfloat G = .1f;
   const GLfloat M = host->mass; // TODO: Add smaller mass.
   GLfloat a = distance;
   GLfloat mu = G * M;

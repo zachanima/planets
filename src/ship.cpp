@@ -84,7 +84,7 @@ GLvoid Ship::render(GLuint program, glm::mat4 &vp) {
 
 
 GLvoid Ship::gravitate(Body *body, GLuint delta) {
-  const GLfloat G = .125f;
+  const GLfloat G = .1f;
   const GLfloat DISTANCE = glm::distance(position, body->position);
   glm::vec2 unit = glm::normalize(body->position - position);
   glm::vec2 acceleration = G * body->mass / glm::pow(DISTANCE, 2.f) * unit;
